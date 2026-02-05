@@ -6,6 +6,7 @@ import { api } from "../../../../convex/_generated/api";
 import { Sidebar, TopHeader } from "@/components/layout";
 import styles from "./payments.module.css";
 import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
 import {
   ChevronDown,
   Download,
@@ -68,6 +69,7 @@ export default function PaymentsPage() {
   const paymentsData = useQuery(api.payments.getAllPayments) || [];
   const usersData = useQuery(api.users.getAllUsers) || [];
   const coursesData = useQuery(api.courses.getAllCourses) || [];
+  const settings = useQuery(api.settings.getSettings);
   const verifyPaymentMutation = useMutation(api.payments.verifyPayment);
   const rejectPaymentMutation = useMutation(api.payments.rejectPayment);
 
@@ -163,28 +165,30 @@ export default function PaymentsPage() {
   ];
 
   // Filter payments by status and date range
-  const dateFilteredTransformedPayments = transformedPayments.filter((payment) => {
-    const today = new Date();
-    today.setHours(23, 59, 59, 999);
-    let startDateFilter = new Date();
-    startDateFilter.setDate(today.getDate() - 30);
-    startDateFilter.setHours(0, 0, 0, 0);
-    let endDateFilter = today;
-
-    if (dateRange.start && dateRange.end) {
-      startDateFilter = new Date(dateRange.start);
+  const dateFilteredTransformedPayments = transformedPayments.filter(
+    (payment) => {
+      const today = new Date();
+      today.setHours(23, 59, 59, 999);
+      let startDateFilter = new Date();
+      startDateFilter.setDate(today.getDate() - 30);
       startDateFilter.setHours(0, 0, 0, 0);
-      endDateFilter = new Date(dateRange.end);
-      endDateFilter.setHours(23, 59, 59, 999);
-    }
+      let endDateFilter = today;
 
-    // Parse the payment date from transformed format back to Date
-    const originalPayment = paymentsData.find((p) => p._id === payment._id);
-    if (!originalPayment) return false;
+      if (dateRange.start && dateRange.end) {
+        startDateFilter = new Date(dateRange.start);
+        startDateFilter.setHours(0, 0, 0, 0);
+        endDateFilter = new Date(dateRange.end);
+        endDateFilter.setHours(23, 59, 59, 999);
+      }
 
-    const paymentDate = new Date(originalPayment.createdAt);
-    return paymentDate >= startDateFilter && paymentDate <= endDateFilter;
-  });
+      // Parse the payment date from transformed format back to Date
+      const originalPayment = paymentsData.find((p) => p._id === payment._id);
+      if (!originalPayment) return false;
+
+      const paymentDate = new Date(originalPayment.createdAt);
+      return paymentDate >= startDateFilter && paymentDate <= endDateFilter;
+    },
+  );
 
   const filteredPayments =
     activeTab === "all"
@@ -224,6 +228,183 @@ export default function PaymentsPage() {
       console.error("Error rejecting payment:", error);
       alert("Gagal menolak pembayaran");
     }
+  };
+
+  // Generate Invoice PDF
+  const generateInvoicePDF = async (payment: PaymentDisplay) => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Get theme color from settings or use default
+    const primaryColor = settings?.primaryColor || "#4c9aff";
+
+    // Helper to convert hex to RGB
+    const hexToRgb = (hex: string) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : { r: 76, g: 154, b: 255 };
+    };
+
+    const rgb = hexToRgb(primaryColor);
+
+    // Header with brand color
+    doc.setFillColor(rgb.r, rgb.g, rgb.b);
+    doc.rect(0, 0, pageWidth, 40, "F");
+
+    // Add logo if available
+    if (settings?.logoUrl) {
+      try {
+        doc.addImage(settings.logoUrl, "PNG", 15, 10, 20, 20);
+      } catch (error) {
+        console.log("Logo not loaded:", error);
+      }
+    }
+
+    // Company name
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont("helvetica", "bold");
+    doc.text(
+      settings?.platformName || "Edu Learn",
+      settings?.logoUrl ? 45 : 15,
+      25,
+    );
+
+    // INVOICE title
+    doc.setFontSize(16);
+    doc.text("INVOICE", pageWidth - 15, 25, { align: "right" });
+
+    // Reset text color
+    doc.setTextColor(0, 0, 0);
+
+    // Invoice details
+    let yPos = 55;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+
+    // Invoice number and date
+    doc.setFont("helvetica", "bold");
+    doc.text("Invoice Number:", 15, yPos);
+    doc.setFont("helvetica", "normal");
+    doc.text(payment.invoiceNumber || payment.id, 60, yPos);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Date:", pageWidth - 70, yPos);
+    doc.setFont("helvetica", "normal");
+    doc.text(payment.date, pageWidth - 15, yPos, { align: "right" });
+
+    yPos += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Status:", pageWidth - 70, yPos);
+    doc.setFont("helvetica", "normal");
+    const statusText =
+      payment.status === "verified" ? "PAID" : payment.status.toUpperCase();
+    doc.setTextColor(
+      payment.status === "verified" ? 34 : 220,
+      payment.status === "verified" ? 197 : 38,
+      payment.status === "verified" ? 94 : 38,
+    );
+    doc.text(statusText, pageWidth - 15, yPos, { align: "right" });
+    doc.setTextColor(0, 0, 0);
+
+    // Divider
+    yPos += 15;
+    doc.setDrawColor(200, 200, 200);
+    doc.line(15, yPos, pageWidth - 15, yPos);
+
+    // Bill To section
+    yPos += 15;
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("BILL TO:", 15, yPos);
+
+    yPos += 8;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text(payment.user.name, 15, yPos);
+
+    yPos += 6;
+    doc.setFont("helvetica", "normal");
+    doc.text(payment.user.email, 15, yPos);
+
+    // Payment details box
+    yPos += 20;
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(15, yPos, pageWidth - 30, 60, 3, 3, "F");
+
+    yPos += 10;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("COURSE DETAILS", 20, yPos);
+
+    yPos += 10;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("Course:", 20, yPos);
+    doc.setFont("helvetica", "bold");
+    doc.text(payment.course, 55, yPos);
+
+    yPos += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text("Payment Method:", 20, yPos);
+    doc.text(payment.paymentMethod, 55, yPos);
+
+    if (payment.bankName) {
+      yPos += 8;
+      doc.text("Bank:", 20, yPos);
+      doc.text(payment.bankName, 55, yPos);
+    }
+
+    if (payment.accountNumber) {
+      yPos += 8;
+      doc.text("Account Number:", 20, yPos);
+      doc.text(payment.accountNumber, 55, yPos);
+    }
+
+    // Total amount section
+    yPos += 25;
+    doc.setDrawColor(200, 200, 200);
+    doc.line(15, yPos, pageWidth - 15, yPos);
+
+    yPos += 15;
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("TOTAL AMOUNT", pageWidth - 80, yPos);
+    doc.setFontSize(16);
+    doc.setTextColor(rgb.r, rgb.g, rgb.b);
+    doc.text(payment.amount, pageWidth - 15, yPos, { align: "right" });
+    doc.setTextColor(0, 0, 0);
+
+    // Footer
+    yPos = pageHeight - 30;
+    doc.setDrawColor(200, 200, 200);
+    doc.line(15, yPos, pageWidth - 15, yPos);
+
+    yPos += 8;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100, 100, 100);
+    doc.text("Thank you for your purchase!", pageWidth / 2, yPos, {
+      align: "center",
+    });
+
+    yPos += 6;
+    doc.setFontSize(8);
+    doc.text(
+      `Generated on ${new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}`,
+      pageWidth / 2,
+      yPos,
+      { align: "center" },
+    );
+
+    // Save PDF
+    doc.save(`Invoice-${payment.invoiceNumber || payment.id}.pdf`);
   };
 
   const quickFilterOptions = [
@@ -408,7 +589,10 @@ export default function PaymentsPage() {
                 <span>{displayDateRange}</span>
                 <ChevronDown size={16} />
               </button>
-              <button className={styles.exportButton} onClick={handleExportExcel}>
+              <button
+                className={styles.exportButton}
+                onClick={handleExportExcel}
+              >
                 <Download size={20} />
                 <span>Export</span>
               </button>
@@ -484,11 +668,28 @@ export default function PaymentsPage() {
                       </td>
                       <td className={styles.td}>
                         <div className={styles.userCell}>
-                          <img
-                            src={payment.user.avatar}
-                            alt={payment.user.name}
-                            className={styles.avatar}
-                          />
+                          {payment.user.avatar ? (
+                            <img
+                              src={payment.user.avatar}
+                              alt={payment.user.name}
+                              className={styles.avatar}
+                            />
+                          ) : (
+                            <div
+                              className={styles.avatar}
+                              style={{
+                                background: "var(--primary)",
+                                color: "white",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {payment.user.name.charAt(0).toUpperCase()}
+                            </div>
+                          )}
                           <div className={styles.userInfo}>
                             <span className={styles.userName}>
                               {payment.user.name}
@@ -578,11 +779,28 @@ export default function PaymentsPage() {
                     Siswa
                   </label>
                   <div className={styles.infoUserCell}>
-                    <img
-                      src={selectedPayment.user.avatar}
-                      alt={selectedPayment.user.name}
-                      className={styles.infoAvatar}
-                    />
+                    {selectedPayment.user.avatar ? (
+                      <img
+                        src={selectedPayment.user.avatar}
+                        alt={selectedPayment.user.name}
+                        className={styles.infoAvatar}
+                      />
+                    ) : (
+                      <div
+                        className={styles.infoAvatar}
+                        style={{
+                          background: "var(--primary)",
+                          color: "white",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "18px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {selectedPayment.user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <div>
                       <div className={styles.infoText}>
                         {selectedPayment.user.name}
@@ -644,22 +862,36 @@ export default function PaymentsPage() {
                 {/* Payment Proof */}
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Bukti Pembayaran</label>
-                  <div className={styles.proofImageWrapper}>
-                    <img
-                      src={selectedPayment.proofImage}
-                      alt="Bukti Pembayaran"
-                      className={styles.proofImage}
-                    />
-                    <a
-                      href={selectedPayment.proofImage}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.viewFullBtn}
+                  {selectedPayment.proofImage ? (
+                    <div className={styles.proofImageWrapper}>
+                      <img
+                        src={selectedPayment.proofImage}
+                        alt="Bukti Pembayaran"
+                        className={styles.proofImage}
+                      />
+                      <a
+                        href={selectedPayment.proofImage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.viewFullBtn}
+                      >
+                        <ExternalLink size={16} />
+                        Lihat Ukuran Penuh
+                      </a>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        padding: "12px",
+                        background: "var(--muted)",
+                        borderRadius: "8px",
+                        color: "var(--text-muted)",
+                        textAlign: "center",
+                      }}
                     >
-                      <ExternalLink size={16} />
-                      Lihat Ukuran Penuh
-                    </a>
-                  </div>
+                      Tidak ada bukti pembayaran
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -693,11 +925,7 @@ export default function PaymentsPage() {
                     {selectedPayment.invoiceNumber && (
                       <button
                         className={styles.submitBtn}
-                        onClick={() => {
-                          alert(
-                            `Downloading invoice ${selectedPayment.invoiceNumber}`,
-                          );
-                        }}
+                        onClick={() => generateInvoicePDF(selectedPayment)}
                       >
                         <Download size={18} />
                         Unduh Invoice

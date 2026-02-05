@@ -26,6 +26,24 @@ export const getAllSettings = query({
   },
 });
 
+// Get settings as object
+export const getSettings = query({
+  args: {},
+  handler: async (ctx) => {
+    const settings = await ctx.db.query("settings").collect();
+    const settingsObj: Record<string, string> = {};
+    settings.forEach((setting) => {
+      settingsObj[setting.key] = setting.value;
+    });
+    return {
+      platformName: settingsObj.platformName || "Edu Learn",
+      logoUrl: settingsObj.logoUrl || null,
+      primaryColor: settingsObj.primaryColor || "#4c9aff",
+      tagline: settingsObj.tagline || null,
+    };
+  },
+});
+
 // Update or create setting
 export const updateSetting = mutation({
   args: {
