@@ -157,7 +157,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  background: white;
+  background: var(--background);
   border-radius: 12px;
   border: 1px solid var(--border);
 }
@@ -238,7 +238,7 @@
 
 /* Lesson Info */
 .lessonInfo {
-  background: white;
+  background: var(--background);
   border-radius: 12px;
   padding: 24px;
   border: 1px solid var(--border);
@@ -479,7 +479,7 @@
 /* Curriculum Sidebar - Collapsible */
 .curriculum {
   width: 380px;
-  background: white;
+  background: var(--background);
   border-radius: 12px;
   border: 1px solid var(--border);
   overflow: hidden;
@@ -625,7 +625,7 @@
 /* Collapsed Curriculum Sidebar */
 .curriculumCollapsed {
   width: 60px;
-  background: white;
+  background: var(--background);
   border-radius: 12px;
   border: 1px solid var(--border);
   display: flex;
@@ -655,7 +655,7 @@
   position: fixed;
   right: 32px;
   top: 120px;
-  background: white;
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 50%;
   width: 48px;
@@ -1139,4 +1139,11 @@
   color: var(--secondary);
   max-width: 400px;
   line-height: 1.6;
+}
+
+/* ===================================
+   Dark Mode Support
+   =================================== */
+[data-theme="dark"] .videoContainer {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
