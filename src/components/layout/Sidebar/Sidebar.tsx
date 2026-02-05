@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/authStore";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 import styles from "./Sidebar.module.css";
 import Image from "next/image";
 import {
@@ -111,6 +113,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user } = useAuthStore();
   const [isSupportModalOpen, setIsSupportModalOpen] = React.useState(false);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+
+  // Fetch settings for WhatsApp and operating hours
+  const settings = useQuery(api.settings.getAllSettings);
 
   useEffect(() => {
     const savedLogo = localStorage.getItem("logoUrl");
@@ -225,15 +230,18 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               </p>
               <div className={styles.whatsappInfo}>
                 <Headset size={48} className={styles.whatsappIcon} />
-                <p className={styles.whatsappNumber}>+62 812-3456-7890</p>
+                <p className={styles.whatsappNumber}>
+                  {settings?.whatsappNumber || "+62 812-3456-7890"}
+                </p>
                 <p className={styles.whatsappDesc}>
-                  Jam operasional: Senin - Jumat, 09:00 - 17:00 WIB
+                  {settings?.operatingHours ||
+                    "Jam operasional: Senin - Jumat, 09:00 - 17:00 WIB"}
                 </p>
               </div>
             </div>
             <div className={styles.modalFooter}>
               <a
-                href="https://wa.me/6281234567890?text=Halo,%20saya%20butuh%20bantuan%20terkait%20EduLearn"
+                href={`https://wa.me/${(settings?.whatsappNumber || "6281234567890").replace(/[^\d]/g, "")}?text=Halo,%20saya%20butuh%20bantuan%20terkait%20EduLearn`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}

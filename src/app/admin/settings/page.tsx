@@ -15,6 +15,7 @@ import {
   CheckCircle,
   AlertTriangle,
   Upload,
+  Headset,
 } from "lucide-react";
 
 export default function SettingsPage() {
@@ -25,6 +26,8 @@ export default function SettingsPage() {
   const [bankName, setBankName] = useState("Bank BCA");
   const [accountNumber, setAccountNumber] = useState("");
   const [accountHolder, setAccountHolder] = useState("PT EduLearn Indonesia");
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [operatingHours, setOperatingHours] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"save" | "reset">("save");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -102,6 +105,17 @@ export default function SettingsPage() {
       await updateSetting({
         key: "accountHolder",
         value: accountHolder,
+      });
+
+      // Save support center settings
+      await updateSetting({
+        key: "whatsappNumber",
+        value: whatsappNumber,
+      });
+
+      await updateSetting({
+        key: "operatingHours",
+        value: operatingHours,
       });
 
       // Update CSS variables
@@ -195,6 +209,8 @@ export default function SettingsPage() {
       setBankName("Bank BCA");
       setAccountNumber("");
       setAccountHolder("PT EduLearn Indonesia");
+      setWhatsappNumber("");
+      setOperatingHours("");
 
       try {
         // Reset in Convex database
@@ -290,12 +306,16 @@ export default function SettingsPage() {
       const bank = allSettings.bankName || "Bank BCA";
       const accNumber = allSettings.accountNumber || "";
       const accHolder = allSettings.accountHolder || "PT EduLearn Indonesia";
+      const whatsapp = allSettings.whatsappNumber || "";
+      const opHours = allSettings.operatingHours || "";
 
       setPrimaryColor(themeColor);
       setLogoUrl(logo);
       setBankName(bank);
       setAccountNumber(accNumber);
       setAccountHolder(accHolder);
+      setWhatsappNumber(whatsapp);
+      setOperatingHours(opHours);
 
       // Update CSS variables
       document.documentElement.style.setProperty("--primary", themeColor);
@@ -547,6 +567,62 @@ export default function SettingsPage() {
                         {accountHolder || "PT EduLearn Indonesia"}
                       </span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Support Center Settings */}
+            <div className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.cardTitleWrapper}>
+                  <Headset size={20} className={styles.cardIcon} />
+                  <h2 className={styles.cardTitle}>Support Center</h2>
+                </div>
+              </div>
+              <div className={styles.cardBody}>
+                <p className={styles.cardDescription}>
+                  Atur informasi kontak support untuk siswa
+                </p>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Nomor WhatsApp</label>
+                  <input
+                    type="text"
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="contoh: +62 812-3456-7890 atau 6281234567890"
+                  />
+                  <p className={styles.inputHint}>
+                    Format: +62 812-3456-7890 (untuk tampilan) atau
+                    6281234567890 (untuk link WhatsApp)
+                  </p>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Jam Operasional</label>
+                  <input
+                    type="text"
+                    value={operatingHours}
+                    onChange={(e) => setOperatingHours(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="contoh: Senin - Jumat, 09:00 - 17:00 WIB"
+                  />
+                </div>
+
+                <div className={styles.supportPreview}>
+                  <p className={styles.previewLabel}>Preview:</p>
+                  <div className={styles.supportPreviewCard}>
+                    <div className={styles.supportPreviewIcon}>
+                      <Headset size={32} />
+                    </div>
+                    <p className={styles.supportPreviewNumber}>
+                      {whatsappNumber || "+62 812-3456-7890"}
+                    </p>
+                    <p className={styles.supportPreviewHours}>
+                      {operatingHours || "Senin - Jumat, 09:00 - 17:00 WIB"}
+                    </p>
                   </div>
                 </div>
               </div>

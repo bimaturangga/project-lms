@@ -613,3 +613,49 @@
   color: var(--foreground);
   font-weight: 600;
 }
+
+/* Support Center Settings */
+.inputHint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.supportPreview {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.supportPreviewCard {
+  background-color: var(--muted);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.supportPreviewIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.supportPreviewNumber {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.supportPreviewHours {
+  font-size: 13px;
+  color: var(--secondary);
+}
