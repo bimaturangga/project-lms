@@ -258,7 +258,7 @@ export default function AdminDashboard() {
     {
       label: "Pembayaran Pending",
       value: pendingPayments.toString(),
-      trend: pendingPayments > 0 ? "Perlu verifikasi" : "Semua terverifikasi",
+      trend: `${verifiedPayments.length} verified`,
       trendUp: pendingPayments === 0,
       subtext:
         verifiedPayments.length > 0
