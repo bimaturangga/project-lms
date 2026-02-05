@@ -630,3 +630,14 @@
 .saveBtn:hover {
   background: var(--primary-hover);
 }
+
+/* ===================================
+   Dark Mode
+   =================================== */
+[data-theme="dark"] .successOverlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .successIcon {
+  background-color: rgba(16, 185, 129, 0.2);
+}

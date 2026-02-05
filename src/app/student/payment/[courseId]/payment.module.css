@@ -64,7 +64,7 @@
 
 /* Payment Form */
 .formCard {
-  background-color: white;
+  background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 32px;
@@ -196,7 +196,7 @@
 
 /* Order Summary */
 .summaryCard {
-  background-color: white;
+  background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 24px;
@@ -333,4 +333,15 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* ===================================
+   Dark Mode
+   =================================== */
+[data-theme="dark"] .successOverlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .successIcon {
+  background-color: rgba(16, 185, 129, 0.2);
 }

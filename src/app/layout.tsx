@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const lexendDeca = Lexend_Deca({
   subsets: ["latin"],
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={lexendDeca.className}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

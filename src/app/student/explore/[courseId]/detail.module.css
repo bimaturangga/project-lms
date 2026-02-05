@@ -47,7 +47,7 @@
   font-size: 14px;
   font-weight: 500;
   transition: color 150ms ease;
-  background-color: white;
+  background-color: var(--background);
   padding: 8px 16px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
@@ -548,7 +548,7 @@
 }
 
 .avgRating svg {
-  color: #EAB308;
+  color: #eab308;
 }
 
 .totalReviews {
@@ -606,7 +606,7 @@
 }
 
 .reviewRating svg {
-  color: #EAB308;
+  color: #eab308;
 }
 
 .reviewText {
@@ -632,4 +632,49 @@
 .emptyReviews p {
   color: var(--secondary);
   font-size: 14px;
+}
+
+/* ===================================
+   Dark Mode
+   =================================== */
+[data-theme="dark"] .layout {
+  background-color: var(--muted);
+}
+
+[data-theme="dark"] .main {
+  background-color: var(--background);
+}
+
+[data-theme="dark"] .backLink {
+  background-color: var(--muted);
+}
+
+[data-theme="dark"] .backLink:hover {
+  background-color: var(--card-grey);
+}
+
+[data-theme="dark"] .thumbnail::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .playIcon {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .playIcon:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .infoSection,
+[data-theme="dark"] .courseCard,
+[data-theme="dark"] .lessonsList,
+[data-theme="dark"] .lessonItem,
+[data-theme="dark"] .reviewCard,
+[data-theme="dark"] .emptyReviews {
+  background-color: var(--muted);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .successOverlay {
+  background-color: rgba(0, 0, 0, 0.7);
 }

@@ -275,11 +275,11 @@
 }
 
 .continueBtn.completed {
-  background-color: #22c55e;
+  background-color: var(--success);
 }
 
 .continueBtn.completed:hover {
-  background-color: #16a34a;
+  background-color: var(--success-hover);
 }
 
 /* Empty State */

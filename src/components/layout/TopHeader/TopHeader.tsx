@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/authStore";
 import { useCartStore } from "@/stores/cartStore";
+import { useThemeStore } from "@/stores/themeStore";
 import { getInitials } from "@/lib/utils";
 import NotificationDropdown from "../NotificationDropdown";
 import styles from "./TopHeader.module.css";
@@ -16,6 +17,8 @@ import {
   LogOut,
   ArrowLeft,
   ShoppingCart,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 interface TopHeaderProps {
@@ -32,6 +35,7 @@ export default function TopHeader({
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const cartStore = useCartStore();
+  const { theme, toggleTheme } = useThemeStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -110,6 +114,15 @@ export default function TopHeader({
             onToggle={() => setIsNotificationOpen(!isNotificationOpen)}
           />
         </div>
+
+        {/* Theme Toggle */}
+        <button
+          className={styles.iconButton}
+          onClick={toggleTheme}
+          title={theme === "light" ? "Dark Mode" : "Light Mode"}
+        >
+          {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
+        </button>
 
         {/* User Profile */}
         <div className={styles.userSection} ref={dropdownRef}>

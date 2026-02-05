@@ -941,3 +941,18 @@
   color: var(--primary);
   transform: translateX(2px);
 }
+
+/* ===================================
+   Dark Mode
+   =================================== */
+[data-theme="dark"] .welcomeSection {
+  background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+}
+
+[data-theme="dark"] .categoryCard {
+  background-color: var(--muted);
+}
+
+[data-theme="dark"] .categoryCard:hover {
+  background-color: var(--card-grey);
+}
