@@ -1,0 +1,131 @@
+.container {
+  width: 100%;
+}
+
+.uploadArea {
+  position: relative;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.uploadArea:hover {
+  border-color: #3b82f6;
+  background-color: #f0f9ff;
+}
+
+.dragOver {
+  border-color: #3b82f6;
+  background-color: #dbeafe;
+  transform: scale(1.02);
+}
+
+.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.success {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.uploadIcon {
+  color: #64748b;
+  transition: color 0.2s ease;
+}
+
+.loadingIcon {
+  color: #3b82f6;
+  animation: spin 1s linear infinite;
+}
+
+.successIcon {
+  color: #10b981;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mainText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  margin: 0;
+}
+
+.description {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.removeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.removeButton:hover {
+  background-color: #dc2626;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .uploadArea {
+    padding: 16px;
+    min-height: 100px;
+  }
+
+  .mainText {
+    font-size: 13px;
+  }
+
+  .description {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,144 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 150ms ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+}
+
+.primary:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.secondary {
+    background-color: var(--muted);
+    color: var(--foreground);
+    border-color: var(--border);
+}
+
+.secondary:hover:not(:disabled) {
+    background-color: var(--card-grey);
+}
+
+.outline {
+    background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.outline:hover:not(:disabled) {
+    background-color: var(--primary-light);
+}
+
+.ghost {
+    background-color: transparent;
+    color: var(--foreground);
+}
+
+.ghost:hover:not(:disabled) {
+    background-color: var(--muted);
+}
+
+.danger {
+    background-color: var(--error);
+    color: #ffffff;
+}
+
+.danger:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.success {
+    background-color: var(--success);
+    color: #ffffff;
+}
+
+.success:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+/* Sizes */
+.sm {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+.md {
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+.lg {
+    padding: 16px 28px;
+    font-size: 16px;
+}
+
+/* Full width */
+.fullWidth {
+    width: 100%;
+}
+
+/* Icon only */
+.iconOnly {
+    padding: 12px;
+}
+
+.iconOnly.sm {
+    padding: 8px;
+}
+
+.iconOnly.lg {
+    padding: 16px;
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    color: transparent;
+}
+
+.spinner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

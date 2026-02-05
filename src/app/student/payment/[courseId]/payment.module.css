@@ -1,0 +1,336 @@
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--muted);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
+  overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+  .main {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 32px;
+  }
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+/* Payment Layout */
+.paymentGrid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .paymentGrid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+/* Payment Form */
+.formCard {
+  background-color: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+}
+
+.bankInfo {
+  background-color: var(--primary-light);
+  border: 1px solid rgba(22, 93, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.bankTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.bankDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bankRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.bankLabel {
+  color: var(--secondary);
+}
+
+.bankValue {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.uploadZone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 150ms ease;
+  background-color: var(--muted);
+  text-align: center;
+}
+
+.uploadZone:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.uploadIcon {
+  color: var(--secondary);
+}
+
+.uploadText {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.uploadSubtext {
+  font-size: 12px;
+  color: var(--secondary);
+}
+
+.filePreview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--muted);
+  border-radius: var(--radius-lg);
+  margin-top: 12px;
+}
+
+.fileName {
+  font-size: 14px;
+  color: var(--foreground);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--success);
+  color: white;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 16px;
+  transition: background-color 150ms ease;
+}
+
+.submitBtn:hover {
+  background-color: #279624;
+  /* Darker success */
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Order Summary */
+.summaryCard {
+  background-color: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  height: fit-content;
+}
+
+.summaryTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 24px;
+}
+
+.courseItem {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.courseThumb {
+  width: 80px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.courseInfo {
+  flex: 1;
+}
+
+.courseTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.coursePrice {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* Success Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 32px;
+  border-radius: 24px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalIconWrapper {
+  width: 64px;
+  height: 64px;
+  background-color: #ecfdf5;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.modalText {
+  font-size: 14px;
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+.modalBtn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: background-color 150ms ease;
+  cursor: pointer;
+  border: none;
+}
+
+.modalBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

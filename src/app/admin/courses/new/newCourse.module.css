@@ -1,0 +1,915 @@
+/* Layout Reused */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.main {
+  flex: 1;
+  margin-left: 280px;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    margin-left: 0;
+  }
+}
+
+.content {
+  padding: 32px 40px;
+  max-width: 1000px;
+  /* Wider for course builder */
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.backButton {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  background-color: var(--muted);
+}
+
+.title h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.title p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+
+.tab {
+  padding: 12px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--foreground);
+}
+
+.activeTab {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Form Sections */
+.formCard {
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  color: var(--foreground);
+  background: white;
+  outline: none;
+  transition: 0.2s;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Upload Area */
+.uploadArea {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  background: var(--muted);
+}
+
+.uploadArea:hover {
+  border-color: var(--primary);
+  background: #eff6ff;
+}
+
+.uploadIcon {
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+/* Curriculum Builder */
+.sectionList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionItem {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.sectionHeader {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  background: #f1f5f9;
+}
+
+.sectionTitleInput {
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  outline: none;
+  color: var(--foreground);
+}
+
+.sectionTitleInput::placeholder {
+  color: var(--muted-foreground);
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: var(--error);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.deleteBtn:hover {
+  background-color: var(--error-light);
+}
+
+.lessonList {
+  padding: 0;
+}
+
+.lessonItem {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+}
+
+.lessonItem:last-child {
+  border-bottom: none;
+}
+
+.lessonIcon {
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lessonInput {
+  flex: 1;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.lessonInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.lessonInput::placeholder {
+  color: var(--muted-foreground);
+}
+
+.deleteLessonBtn {
+  background: transparent;
+  border: none;
+  color: var(--error);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.deleteLessonBtn:hover {
+  background-color: var(--error-light);
+}
+
+.addLessonButtons {
+  display: flex;
+  gap: 0;
+}
+
+.addLessonBtn {
+  flex: 1;
+  padding: 12px;
+  background: white;
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.addLessonBtn:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.addLessonBtn:hover {
+  background: var(--primary-light);
+}
+
+.addSectionBtn {
+  margin-top: 24px;
+  width: 100%;
+  padding: 16px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--muted-foreground);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+}
+
+.addSectionBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #eff6ff;
+}
+
+/* Actions */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.headerButton {
+  /* Reusing consistent button style */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 14px rgba(22, 93, 255, 0.25);
+  border: none;
+  cursor: pointer;
+}
+
+.headerButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.cancelBtn {
+  padding: 12px 24px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  font-weight: 600;
+  color: var(--secondary-foreground);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cancelBtn:hover {
+  background: var(--muted);
+}
+
+/* Video Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.videoModal {
+  background-color: var(--background);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.modalSubtitle {
+  font-size: 14px;
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.closeBtn:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.videoOptions {
+  display: grid;
+  gap: 12px;
+}
+
+.videoOptionBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  background-color: var(--background);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.videoOptionBtn:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.videoOptionBtn svg {
+  color: var(--primary);
+}
+
+.optionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.optionDesc {
+  font-size: 13px;
+  color: var(--secondary);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* Quiz Modal */
+.quizModal {
+  background-color: var(--background);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease-out;
+}
+
+.quizQuestionsWrapper {
+  margin-top: 20px;
+}
+
+.quizHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.quizLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.addQuestionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.addQuestionBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.questionCard {
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.questionNumber {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.deleteQuestionBtn {
+  background: transparent;
+  border: none;
+  color: var(--error);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: all var(--transition-fast);
+}
+
+.deleteQuestionBtn:hover {
+  background-color: var(--error-light);
+}
+
+.optionsWrapper {
+  margin-top: 12px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.radio {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.optionInput {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.optionInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.correctHint {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Success Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 32px;
+  border-radius: 24px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalIconWrapper {
+  width: 64px;
+  height: 64px;
+  background-color: #ecfdf5;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.modalText {
+  font-size: 14px;
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+.modalBtn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: background-color 150ms ease;
+  cursor: pointer;
+  border: none;
+}
+
+.modalBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Generic Modal (for edit page) */
+.modal {
+  background-color: white;
+  border-radius: var(--radius-xl);
+  padding: 0;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.modal .modalHeader {
+  padding: 24px 24px 16px;
+  border-bottom: none;
+}
+
+.modal .modalHeader h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.modalBody {
+  padding: 0 24px 16px;
+}
+
+.modalBody p {
+  font-size: 14px;
+  color: var(--secondary);
+  margin: 0;
+}
+
+.modal .modalFooter {
+  padding: 16px 24px 24px;
+  border-top: none;
+  margin-top: 0;
+}
+
+.modalButton {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius-lg);
+  transition: background-color 150ms ease;
+  cursor: pointer;
+  border: none;
+}
+
+.modalButton:hover {
+  background-color: var(--primary-hover);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--secondary);
+  gap: 12px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Category Management */
+.addCategoryBtn {
+  padding: 8px 16px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.addCategoryBtn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.addCategoryBtn:disabled {
+  background-color: var(--muted);
+  color: var(--secondary);
+  cursor: not-allowed;
+}
+
+.cancelCategoryBtn {
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.cancelCategoryBtn:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.cancelButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: white;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.cancelButton:hover {
+  background-color: var(--muted);
+  border-color: var(--muted-foreground);
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: var(--primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.submitButton:disabled {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  cursor: not-allowed;
+}

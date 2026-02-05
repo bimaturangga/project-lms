@@ -1,0 +1,162 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--muted);
+}
+
+.card {
+  background: var(--background);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header {
+  padding: 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.header svg {
+  color: var(--primary);
+  margin: 0 auto 16px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+
+.header p {
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.content {
+  padding: 40px;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.alert.loading {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.alert.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.alert.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+
+.section p {
+  color: var(--secondary);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.section ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 16px;
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.section ul li {
+  margin-bottom: 4px;
+}
+
+.section button {
+  width: 100%;
+  justify-content: center;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 32px 0;
+}
+
+.danger {
+  color: #ef4444 !important;
+  font-weight: 600;
+}
+
+.info {
+  background: var(--muted);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  margin-top: 32px;
+}
+
+.info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--foreground);
+}
+
+.credentials {
+  font-size: 13px;
+}
+
+.credentials strong {
+  color: var(--foreground);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.credentials p {
+  color: var(--secondary);
+  margin: 4px 0;
+  font-family: monospace;
+}

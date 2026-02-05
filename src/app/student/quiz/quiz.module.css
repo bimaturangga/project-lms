@@ -1,0 +1,357 @@
+/* Quiz Page Styles */
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--muted);
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background);
+    overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+    .main {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .content {
+        padding: 32px;
+    }
+}
+
+/* Quiz Header */
+.quizHeader {
+    margin-bottom: 32px;
+}
+
+.quizTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 8px;
+}
+
+.quizMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+/* Progress Bar */
+.progressSection {
+    margin-bottom: 32px;
+}
+
+.progressHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.progressLabel {
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+.progressBar {
+    height: 8px;
+    background-color: var(--muted);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+}
+
+/* Question Card */
+.questionCard {
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.questionNumber {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.questionText {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+/* Options */
+.optionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.optionItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.optionItem:hover {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.optionItem.selected {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.optionItem.correct {
+    border-color: var(--success);
+    background-color: var(--success-light);
+}
+
+.optionItem.incorrect {
+    border-color: var(--error);
+    background-color: var(--error-light);
+}
+
+.optionLabel {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--muted);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary);
+    flex-shrink: 0;
+}
+
+.optionItem.selected .optionLabel {
+    background-color: var(--primary);
+    color: white;
+}
+
+.optionItem.correct .optionLabel {
+    background-color: var(--success);
+    color: white;
+}
+
+.optionItem.incorrect .optionLabel {
+    background-color: var(--error);
+    color: white;
+}
+
+.optionText {
+    font-size: 15px;
+    color: var(--foreground);
+}
+
+/* Navigation */
+.quizNav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.navBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.navBtn.prev {
+    background-color: var(--muted);
+    color: var(--foreground);
+    border: none;
+}
+
+.navBtn.prev:hover {
+    background-color: var(--card-grey);
+}
+
+.navBtn.next {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.navBtn.next:hover {
+    background-color: var(--primary-hover);
+}
+
+.navBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.submitBtn {
+    background-color: var(--success);
+    color: white;
+    border: none;
+}
+
+.submitBtn:hover {
+    opacity: 0.9;
+}
+
+/* Results */
+.resultsCard {
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    text-align: center;
+}
+
+.resultsIcon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.resultsIcon.pass {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.resultsIcon.fail {
+    background-color: var(--error-light);
+    color: var(--error);
+}
+
+.resultsTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 8px;
+}
+
+.resultsScore {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.resultsText {
+    font-size: 16px;
+    color: var(--secondary);
+    margin-bottom: 32px;
+}
+
+.resultsActions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.resultBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.resultBtn.primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.resultBtn.primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.resultBtn.secondary {
+    background-color: var(--muted);
+    color: var(--foreground);
+    border: none;
+}
+
+.resultBtn.secondary:hover {
+    background-color: var(--card-grey);
+}
+
+/* Timer */
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--muted);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.timer.warning {
+    background-color: var(--warning-light);
+    color: #92400e;
+}
+
+.timer.danger {
+    background-color: var(--error-light);
+    color: var(--error);
+}

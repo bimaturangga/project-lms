@@ -1,0 +1,402 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background-color: var(--background);
+  border-right: 1px solid var(--border);
+  transform: translateX(-100%);
+  transition: transform var(--transition-normal);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: translateX(0);
+  }
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 40;
+}
+
+@media (min-width: 1024px) {
+  .overlay {
+    display: none;
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.logoIcon {
+  width: 44px;
+  height: 36px;
+  background-color: var(--primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.closeButton {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  color: var(--secondary);
+  transition: all var(--transition-fast);
+}
+
+.closeButton:hover {
+  border-color: var(--primary);
+}
+
+@media (min-width: 1024px) {
+  .closeButton {
+    display: none;
+  }
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 120px;
+  gap: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.navTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  color: var(--secondary);
+  font-weight: 500;
+  transition: all var(--transition-normal);
+}
+
+.navItem:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.navItem.active {
+  background-color: var(--muted);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Support Card */
+.support {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar-width);
+}
+
+.supportInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
+  gap: 12px;
+  margin: 0 20px 20px 20px;
+  border-radius: var(--radius-md);
+}
+
+.supportText {
+  min-width: 0;
+}
+
+.supportTitle {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.supportLink {
+  font-size: 14px;
+  color: var(--secondary);
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.supportLink:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.supportIcon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--primary-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+/* Support Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.supportModal {
+  background-color: var(--background);
+  border-radius: var(--radius-xl);
+  width: 90%;
+  max-width: 480px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.modalBody {
+  padding: 24px 32px;
+  text-align: center;
+}
+
+.modalText {
+  color: var(--secondary);
+  margin-bottom: 24px;
+}
+
+.whatsappInfo {
+  padding: 24px;
+  background-color: var(--muted);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+.whatsappIcon {
+  color: var(--primary);
+  margin: 0 auto 16px;
+}
+
+.whatsappNumber {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.whatsappDesc {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 32px;
+  border-top: 1px solid var(--border);
+}
+
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  background-color: var(--muted);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex: 1;
+}
+
+.cancelBtn:hover {
+  background-color: var(--border);
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  background-color: #25d366;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  flex: 1;
+}
+
+.whatsappBtn:hover {
+  background-color: #20ba5a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .supportModal {
+    width: 95%;
+  }
+
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    padding: 20px;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .cancelBtn,
+  .whatsappBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
