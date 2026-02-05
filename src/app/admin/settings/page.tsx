@@ -22,6 +22,9 @@ export default function SettingsPage() {
   const [primaryColor, setPrimaryColor] = useState("#165dff");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [bankName, setBankName] = useState("Bank BCA");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [accountHolder, setAccountHolder] = useState("PT EduLearn Indonesia");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"save" | "reset">("save");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -84,6 +87,22 @@ export default function SettingsPage() {
           value: logoUrl,
         });
       }
+
+      // Save bank account settings
+      await updateSetting({
+        key: "bankName",
+        value: bankName,
+      });
+
+      await updateSetting({
+        key: "accountNumber",
+        value: accountNumber,
+      });
+
+      await updateSetting({
+        key: "accountHolder",
+        value: accountHolder,
+      });
 
       // Update CSS variables
       document.documentElement.style.setProperty("--primary", primaryColor);
@@ -173,6 +192,9 @@ export default function SettingsPage() {
       setPrimaryColor(defaultColor);
       setLogoUrl("");
       setLogoFile(null);
+      setBankName("Bank BCA");
+      setAccountNumber("");
+      setAccountHolder("PT EduLearn Indonesia");
 
       try {
         // Reset in Convex database
@@ -265,9 +287,15 @@ export default function SettingsPage() {
     if (allSettings) {
       const themeColor = allSettings.themeColor || "#165dff";
       const logo = allSettings.logoUrl || "";
+      const bank = allSettings.bankName || "Bank BCA";
+      const accNumber = allSettings.accountNumber || "";
+      const accHolder = allSettings.accountHolder || "PT EduLearn Indonesia";
 
       setPrimaryColor(themeColor);
       setLogoUrl(logo);
+      setBankName(bank);
+      setAccountNumber(accNumber);
+      setAccountHolder(accHolder);
 
       // Update CSS variables
       document.documentElement.style.setProperty("--primary", themeColor);
@@ -429,6 +457,96 @@ export default function SettingsPage() {
                         </div>
                       </label>
                     )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bank Account Settings */}
+            <div className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.cardTitleWrapper}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={styles.cardIcon}
+                  >
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                  <h2 className={styles.cardTitle}>Rekening Bank</h2>
+                </div>
+              </div>
+              <div className={styles.cardBody}>
+                <p className={styles.cardDescription}>
+                  Atur informasi rekening bank untuk pembayaran siswa
+                </p>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Nama Bank</label>
+                  <input
+                    type="text"
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="contoh: Bank BCA, Bank Mandiri"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Nomor Rekening</label>
+                  <input
+                    type="text"
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="contoh: 1234567890"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Nama Penerima</label>
+                  <input
+                    type="text"
+                    value={accountHolder}
+                    onChange={(e) => setAccountHolder(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="contoh: PT EduLearn Indonesia"
+                  />
+                </div>
+
+                <div className={styles.bankPreview}>
+                  <p className={styles.previewLabel}>Preview:</p>
+                  <div className={styles.bankPreviewCard}>
+                    <div className={styles.bankPreviewRow}>
+                      <span className={styles.bankPreviewLabel}>Bank</span>
+                      <span className={styles.bankPreviewValue}>
+                        {bankName || "Bank BCA"}
+                      </span>
+                    </div>
+                    <div className={styles.bankPreviewRow}>
+                      <span className={styles.bankPreviewLabel}>
+                        No. Rekening
+                      </span>
+                      <span className={styles.bankPreviewValue}>
+                        {accountNumber || "123 456 7890"}
+                      </span>
+                    </div>
+                    <div className={styles.bankPreviewRow}>
+                      <span className={styles.bankPreviewLabel}>
+                        Nama Penerima
+                      </span>
+                      <span className={styles.bankPreviewValue}>
+                        {accountHolder || "PT EduLearn Indonesia"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

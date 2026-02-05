@@ -551,3 +551,65 @@
     width: 100%;
   }
 }
+
+/* Bank Account Settings */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.textInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  color: var(--foreground);
+  background-color: var(--background);
+  transition: all var(--transition-fast);
+}
+
+.textInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
+}
+
+.textInput::placeholder {
+  color: var(--text-muted);
+}
+
+.bankPreview {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.bankPreviewCard {
+  background-color: var(--muted);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-top: 12px;
+}
+
+.bankPreviewRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.bankPreviewRow:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.bankPreviewLabel {
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.bankPreviewValue {
+  font-size: 14px;
+  color: var(--foreground);
+  font-weight: 600;
+}

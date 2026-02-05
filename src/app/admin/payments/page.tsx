@@ -64,6 +64,8 @@ export default function PaymentsPage() {
   const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
+  const [previewImageUrl, setPreviewImageUrl] = useState("");
 
   // Convex queries and mutations
   const paymentsData = useQuery(api.payments.getAllPayments) || [];
@@ -869,15 +871,16 @@ export default function PaymentsPage() {
                         alt="Bukti Pembayaran"
                         className={styles.proofImage}
                       />
-                      <a
-                        href={selectedPayment.proofImage}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => {
+                          setPreviewImageUrl(selectedPayment.proofImage);
+                          setIsImagePreviewOpen(true);
+                        }}
                         className={styles.viewFullBtn}
                       >
                         <ExternalLink size={16} />
                         Lihat Ukuran Penuh
-                      </a>
+                      </button>
                     </div>
                   ) : (
                     <div
@@ -1007,6 +1010,31 @@ export default function PaymentsPage() {
                   Apply Range
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Image Preview Modal */}
+        {isImagePreviewOpen && (
+          <div
+            className={styles.imagePreviewOverlay}
+            onClick={() => setIsImagePreviewOpen(false)}
+          >
+            <button
+              className={styles.imagePreviewClose}
+              onClick={() => setIsImagePreviewOpen(false)}
+            >
+              <X size={24} />
+            </button>
+            <div
+              className={styles.imagePreviewContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={previewImageUrl}
+                alt="Bukti Pembayaran Full Size"
+                className={styles.imagePreviewImg}
+              />
             </div>
           </div>
         )}

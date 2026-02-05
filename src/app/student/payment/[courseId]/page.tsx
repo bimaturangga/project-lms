@@ -31,6 +31,7 @@ export default function PaymentPage({
 
   // Fetch course data from database
   const coursesData = useQuery(api.courses.getAllCourses) || [];
+  const settings = useQuery(api.settings.getAllSettings);
 
   // Mutations
   const createPayment = useMutation(api.payments.createPayment);
@@ -130,7 +131,7 @@ export default function PaymentPage({
           userId: user._id as Id<"users">,
           courseId: item._id as Id<"courses">,
           amount: item.price,
-          paymentMethod: "Bank Transfer - BCA",
+          paymentMethod: `Bank Transfer - ${settings?.bankName || "BCA"}`,
           invoiceNumber,
           proofUrl: proofUrl,
         });
@@ -182,13 +183,17 @@ export default function PaymentPage({
                 <h3 className={styles.bankTitle}>Transfer Bank / E-Wallet</h3>
                 <div className={styles.bankDetails}>
                   <div className={styles.bankRow}>
-                    <span className={styles.bankLabel}>Bank BCA</span>
-                    <span className={styles.bankValue}>123 456 7890</span>
+                    <span className={styles.bankLabel}>
+                      {settings?.bankName || "Bank BCA"}
+                    </span>
+                    <span className={styles.bankValue}>
+                      {settings?.accountNumber || "123 456 7890"}
+                    </span>
                   </div>
                   <div className={styles.bankRow}>
                     <span className={styles.bankLabel}>Nama Penerima</span>
                     <span className={styles.bankValue}>
-                      PT EduLearn Indonesia
+                      {settings?.accountHolder || "PT EduLearn Indonesia"}
                     </span>
                   </div>
                   <div className={styles.bankRow}>
