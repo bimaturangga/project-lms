@@ -28,6 +28,7 @@ export default function SettingsPage() {
   const [accountHolder, setAccountHolder] = useState("PT EduLearn Indonesia");
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [operatingHours, setOperatingHours] = useState("");
+  const [whatsappMessage, setWhatsappMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"save" | "reset">("save");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -116,6 +117,11 @@ export default function SettingsPage() {
       await updateSetting({
         key: "operatingHours",
         value: operatingHours,
+      });
+
+      await updateSetting({
+        key: "whatsappMessage",
+        value: whatsappMessage,
       });
 
       // Update CSS variables
@@ -211,6 +217,7 @@ export default function SettingsPage() {
       setAccountHolder("PT EduLearn Indonesia");
       setWhatsappNumber("");
       setOperatingHours("");
+      setWhatsappMessage("");
 
       try {
         // Reset in Convex database
@@ -308,6 +315,7 @@ export default function SettingsPage() {
       const accHolder = allSettings.accountHolder || "PT EduLearn Indonesia";
       const whatsapp = allSettings.whatsappNumber || "";
       const opHours = allSettings.operatingHours || "";
+      const waMessage = allSettings.whatsappMessage || "";
 
       setPrimaryColor(themeColor);
       setLogoUrl(logo);
@@ -316,6 +324,7 @@ export default function SettingsPage() {
       setAccountHolder(accHolder);
       setWhatsappNumber(whatsapp);
       setOperatingHours(opHours);
+      setWhatsappMessage(waMessage);
 
       // Update CSS variables
       document.documentElement.style.setProperty("--primary", themeColor);
@@ -611,6 +620,21 @@ export default function SettingsPage() {
                   />
                 </div>
 
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>Pesan WhatsApp</label>
+                  <textarea
+                    value={whatsappMessage}
+                    onChange={(e) => setWhatsappMessage(e.target.value)}
+                    className={styles.textArea}
+                    placeholder="contoh: Halo, saya butuh bantuan terkait EduLearn"
+                    rows={3}
+                  />
+                  <p className={styles.inputHint}>
+                    Pesan ini akan otomatis terisi saat siswa mengklik tombol
+                    "Hubungi via WA"
+                  </p>
+                </div>
+
                 <div className={styles.supportPreview}>
                   <p className={styles.previewLabel}>Preview:</p>
                   <div className={styles.supportPreviewCard}>
@@ -623,6 +647,15 @@ export default function SettingsPage() {
                     <p className={styles.supportPreviewHours}>
                       {operatingHours || "Senin - Jumat, 09:00 - 17:00 WIB"}
                     </p>
+                    {(whatsappMessage ||
+                      "Halo, saya butuh bantuan terkait EduLearn") && (
+                      <div className={styles.supportPreviewMessage}>
+                        "
+                        {whatsappMessage ||
+                          "Halo, saya butuh bantuan terkait EduLearn"}
+                        "
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

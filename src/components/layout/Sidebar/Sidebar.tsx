@@ -241,7 +241,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             <div className={styles.modalFooter}>
               <a
-                href={`https://wa.me/${(settings?.whatsappNumber || "6281234567890").replace(/[^\d]/g, "")}?text=Halo,%20saya%20butuh%20bantuan%20terkait%20EduLearn`}
+                href={`https://wa.me/${(settings?.whatsappNumber || "6281234567890").replace(/[^\d]/g, "")}?text=${encodeURIComponent(settings?.whatsappMessage || "Halo, saya butuh bantuan terkait EduLearn")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}
